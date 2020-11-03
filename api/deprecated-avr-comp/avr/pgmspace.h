@@ -47,6 +47,8 @@ typedef uint32_t prog_uint32_t;
 typedef int64_t prog_int64_t;
 typedef uint64_t prog_uint64_t;
 
+#if !defined (__AVR__)
+
 typedef const void* int_farptr_t;
 typedef const void* uint_farptr_t;
 
@@ -98,6 +100,8 @@ typedef const void* uint_farptr_t;
 
 #define sprintf_P(s, f, ...) sprintf((s), (f), __VA_ARGS__)
 #define snprintf_P(s, f, ...) snprintf((s), (f), __VA_ARGS__)
+
+#endif
 
 #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
 #define pgm_read_word(addr) (*(const unsigned short *)(addr))
