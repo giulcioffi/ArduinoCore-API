@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#if defined(__AVR__)
+#if defined(__AVR__) && !defined(__AVR_ATmega4809__)
 #include "avr/pgmspace.h"
 #else
 #include "deprecated-avr-comp/avr/pgmspace.h"
