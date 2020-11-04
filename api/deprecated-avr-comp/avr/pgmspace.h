@@ -27,13 +27,15 @@
 #ifndef __PGMSPACE_H_
 #define __PGMSPACE_H_ 1
 
-#include <inttypes.h>
-
 #define PROGMEM
 #define PGM_P  const char *
 #define PSTR(str) (str)
 
 #define _SFR_BYTE(n) (n)
+
+#if !defined (__AVR__)
+
+#include <inttypes.h>
 
 typedef void prog_void;
 typedef char prog_char;
@@ -47,10 +49,13 @@ typedef uint32_t prog_uint32_t;
 typedef int64_t prog_int64_t;
 typedef uint64_t prog_uint64_t;
 
-#if !defined (__AVR__)
-
 typedef const void* int_farptr_t;
 typedef const void* uint_farptr_t;
+
+#define sprintf_P(s, f, ...) sprintf((s), (f), __VA_ARGS__)
+#define snprintf_P(s, f, ...) snprintf((s), (f), __VA_ARGS__)
+
+#endif
 
 #define memchr_P(s, c, n) memchr((s), (c), (n))
 #define memcmp_P(s1, s2, n) memcmp((s1), (s2), (n))
@@ -97,11 +102,6 @@ typedef const void* uint_farptr_t;
 #define strstr_PF(s1, s2) strstr((s1), (s2))
 #define strlcpy_PF(dest, src, n) strlcpy((dest), (src), (n))
 #define memcmp_PF(s1, s2, n) memcmp((s1), (s2), (n))
-
-#define sprintf_P(s, f, ...) sprintf((s), (f), __VA_ARGS__)
-#define snprintf_P(s, f, ...) snprintf((s), (f), __VA_ARGS__)
-
-#endif
 
 #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
 #define pgm_read_word(addr) (*(const unsigned short *)(addr))
